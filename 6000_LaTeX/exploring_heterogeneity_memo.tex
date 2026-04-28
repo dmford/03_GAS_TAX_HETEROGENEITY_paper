@@ -1,0 +1,138 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{indentfirst}
+\usepackage{url}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{caption}
+
+%\newcommand{\sym}[1]{\rlap{$#1$}} % for symbols in Table
+\newcommand{\sym}[1]{{#1}} % for symbols in Table
+%\graphicspath{{C:/Users/david/coding/02_TRAFFIC_BIAS_paper/6000_LaTeX/figures/}}
+
+\begin{document}
+
+\title{Preliminary Gas Elasticity Heterogeneity Memo}
+\maketitle
+
+
+
+\section{Abstract}
+
+
+
+\section{Introduction}
+Following from Bates \& Kim (JAE 2024), this paper considers underlying characteristics that lead to the observed state heterogeneity in gas price elasticity in the second-stage of their Per-Cluster Intrumental Variables (PCIV) estimation. \\
+
+To this end, we use the following state characteristics as predictors, preferring 1980 measures to avoid endogeneity concerns: \\
+
+
+
+\section{Data Description}
+% Describing Covariates
+\begin{itemize}
+	\item Minimum temperature in 1980. 
+	\item Average temperature in 1980. 
+	\item Maximum temperature in 1980. 
+	\item Inches of precipitation in 1980. 
+	\item Percentage flatness (Dobson \& Campbell 2014). 
+	\item Miles of land area. 
+	\item Meters of border with a different state. 
+	\item Percentage of state population living in a state with a border county in 1980. 
+	\item Percentage of state population utilizing public transport in 1980. 
+\end{itemize}
+
+\begin{center}
+	\input gas_elasticity_dstats.tex
+\end{center}
+
+
+
+\section{Methodology \& Results}
+%	Estimating Equation 
+\begin{equation} 
+	Elasticity_{s} = \boldsymbol{X} \boldsymbol{\beta} + u_{s} 
+\end{equation}
+
+%	Main Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Main Predictors, Weighted}
+		\input{etable_y1_main_w.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%	Environmental Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Environmental Predictors, Weighted}
+		\input{etable_y1_environmental_w.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%	Transportation Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Transportation Predictors, Weighted}
+		\input{etable_y1_transportation_w.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%	Demographic Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Demographic Predictors, Weighted}
+		\input{etable_y1_demographic_w.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%%%%%%%%%%
+
+%	Main Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Main Predictors, Unweighted}
+		\input{etable_y1_main.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%	Environmental Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Environmental Predictors, Unweighted}
+		\input{etable_y1_environmental.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%	Transportation Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Transportation Predictors, Unweighted}
+		\input{etable_y1_transportation.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+%	Demographic Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\caption{Demographic Predictors, Unweighted}
+		\input{etable_y1_demographic.tex}
+%		\caption*{}
+	\end{center}
+\end{table}
+
+\end{document}

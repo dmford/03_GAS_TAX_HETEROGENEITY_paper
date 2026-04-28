@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+            &\multicolumn{6}{c}{Gas Price Elasticity}                                                                                           \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+\hline
+Weather Ind.&       0.015         &                     &                     &                     &                     &       0.001         \\
+            &     (0.014)         &                     &                     &                     &                     &     (0.011)         \\
+[1em]
+Steepness   &                     &      -0.373         &                     &                     &                     &      -0.389         \\
+            &                     &     (0.301)         &                     &                     &                     &     (0.314)         \\
+[1em]
+Land Area   &                     &                     &       0.148         &                     &                     &       0.171         \\
+            &                     &                     &     (0.150)         &                     &                     &     (0.162)         \\
+[1em]
+Border Pop. &                     &                     &                     &      -0.042         &                     &       0.051         \\
+            &                     &                     &                     &     (0.049)         &                     &     (0.051)         \\
+[1em]
+Public Trans.&                     &                     &                     &                     &      -0.050         &       0.017         \\
+            &                     &                     &                     &                     &     (0.250)         &     (0.326)         \\
+[1em]
+Constant    &      -0.547\sym{***}&      -0.300         &      -0.554\sym{***}&      -0.526\sym{***}&      -0.540\sym{***}&      -0.325\sym{*}  \\
+            &     (0.023)         &     (0.182)         &     (0.031)         &     (0.018)         &     (0.021)         &     (0.182)         \\
+\hline
+Pop.-Weights&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+States:     &      51.000         &      49.000         &      51.000         &      51.000         &      51.000         &      49.000         \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

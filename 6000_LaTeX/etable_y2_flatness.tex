@@ -1,0 +1,26 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+            &\multicolumn{6}{c}{Gas Price Elasticity}                                                                                           \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+\hline
+Land Area   &       0.045         &                     &                     &       0.169         &       0.469         &       0.479         \\
+            &     (0.199)         &                     &                     &     (0.187)         &     (0.359)         &     (0.371)         \\
+[1em]
+weather\_index&                     &       0.020         &                     &       0.023         &                     &       0.007         \\
+            &                     &     (0.024)         &                     &     (0.025)         &                     &     (0.017)         \\
+[1em]
+Flatness Ind.&                     &                     &      -0.045\sym{*}  &                     &      -0.043\sym{*}  &      -0.046\sym{*}  \\
+            &                     &                     &     (0.026)         &                     &     (0.025)         &     (0.026)         \\
+[1em]
+Constant    &      -0.524\sym{***}&      -0.521\sym{***}&      -0.533\sym{***}&      -0.533\sym{***}&      -0.561\sym{***}&      -0.562\sym{***}\\
+            &     (0.034)         &     (0.023)         &     (0.019)         &     (0.031)         &     (0.033)         &     (0.033)         \\
+\hline
+Weights     &          No         &          No         &          No         &          No         &          No         &          No         \\
+States:     &      51.000         &      51.000         &      49.000         &      51.000         &      49.000         &      49.000         \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

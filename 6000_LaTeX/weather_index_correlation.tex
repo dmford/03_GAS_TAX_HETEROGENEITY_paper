@@ -1,0 +1,17 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\hline\hline
+          &\multicolumn{5}{c}{(1)}                                                                       \\
+          &\multicolumn{5}{c}{}                                                                          \\
+          &WeatherIndex         &  MinTemp         &  AvgTemp         &  MaxTemp         &     Rain         \\
+\hline
+WeatherIndex&        1         &                  &                  &                  &                  \\
+MinTemp   &    0.987\sym{***}&        1         &                  &                  &                  \\
+AvgTemp   &    0.934\sym{***}&    0.864\sym{***}&        1         &                  &                  \\
+MaxTemp   &    0.299\sym{*}  &    0.163         &    0.590\sym{***}&        1         &                  \\
+Rain      &    0.459\sym{***}&    0.458\sym{***}&    0.402\sym{**} &   -0.199         &        1         \\
+\hline\hline
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

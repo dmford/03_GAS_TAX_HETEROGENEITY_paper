@@ -1,0 +1,450 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	GAS TAX HETEROGENEITY PAPER 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	LOADING PACKAGES 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{indentfirst}
+\usepackage{xurl}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{setspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	CUSTOM COMMANDS, ETC. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{breaklinks=true}
+%\newcommand{\sym}[1]{\rlap{$#1$}} % for symbols in Table
+\newcommand{\sym}[1]{{#1}} % for symbols in Table
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	TITLE PAGE 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\title{Environmental, Transportation, and Population Determinants of Gas Price Elasticity Across U.S. States}
+\author{Michael Bates, David Ford,\& Seolah Kim}
+\maketitle
+\footnote{DRAFT - DO NOT CIRCULATE} \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	ABSTRACT 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Abstract}
+This paper provides the first empirical assessment of heterogeneity in gas price elasticity across U.S. states and D.C. Using new state-specific elasticity estimates from Bates \& Kim (JAE 2024), we examine how environmental factors, transportation infrastructure, and demographic characteristics shape cross-state variation in responsiveness in at-the-pump price changes. We find that locales with more favorable weather and larger land areas exhibit lower elasticity, while those areas with denser populations, more urbanized road networks, and larger border-area populations - particularly when the neighboring locale tends to have cheaper gas - show higher elasticity. These results suggest that consumers in more urban settings and those with access to alternative fuel markets adjust their purchasing behavior more strongly. Overall, the findings highlight the importance of accounting for local heterogeneity when evaluating fuel demand and energy policy. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DISSERTATION CHAPTER CONVERSION STEPS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Remove everything above here
+%	Remove \end{document}
+%	Remove appendix, bibliography
+%\chapter[Chapter 3]{Environmental, Transportation, and Population Determinants of Gas Price Elasticity Across U.S. States}
+%\addcontentsline{lof}{chapter}{\numberline{\thechapter}Chapter 3}
+%\addcontentsline{lot}{chapter}{\numberline{\thechapter}Chapter 3}
+%overwrite ``chapter3'' file 
+
+\graphicspath{{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	INTRODUCTION 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} 
+Understanding how consumers respond to changes in gasoline prices is central to evaluating energy policy, environmental regulation, and transportation planning in the U.S. states plus D.C. Despite a large literature studying gas price elasticity, little is known about how what drives this variation across locales. States vary widely in many geographic and socioeconomic features, and these factors influence necessity for transportation and substitutability away from cars differently for each locale. \\ 
+
+Gas price elasticity varies across numerous dimensions; short vs long run, household types, geographic regions, and more. State-level estimates and a better understanding of the underlying sources of heterogeneity can benefit revenue and tax forecasting, can help predict traffic and emissions patterns and responses, and can be used to design targeted environmental policies. \\
+
+%	Fuel tourism exists, and is well-documented 
+%	Consumers are willing to delay purchases to avoid taxes
+The literature on fuel tourism, or the crossing of borders to legally purchase gas from cheaper locales, is well-founded in the literature (Kennedy et al 2017; Beard et al 1997). It has also been shown that consumers are willing to hoard gas or delay purchasing decisions to benefit from lower prices (Coglianese et al, JAE 2017). For a jurisdiction wishing to combat these avoidance strategies, a stronger understanding of their drivers can prove beneficial. \\
+
+%	Tax avoidance 
+%	State cooperation may increase revenues 
+In other similar markets, the literature demonstrates legal tax avoidance is commonplace in both cigarettes and alcohol markets (Decicca et al 2014; Baisalova 2025). Examinations of income tax avoidance have further suggested that consumers are willing to migrate to avoid taxes (Troiano 2023). For governments to effectively design tax policies, increased knowledge of regional consumer dynamics is important. In other strands of literature, it has been shown that inter-agency cooperation can increase tax revenues (Troiano 2024). \\
+
+%	May be differential effects across socioeconomic groups 
+%	Important implications for environmental regulation and spillovers 
+Looking further, there is evidence of spillover effects across regions for petroleum products and gasoline, with one region losing revenues while another gains at their expense (Sweeney, 2022), demonstrating that financial migration concerns are of further importance. In addition to cross-border redistribution, there may be inequalities across socioeconomic groups, with previous literature finding that middle-income consumers are most responsive to gas price changes, whereas low- and high-income groups behave more inelastically. \\
+
+Finally, there are environmental and emissions concerns that can benefit from increased knowledge of heterogeneous regional consumer markets. More expensive gas leads to lower CO2 emissions (Davis, Kilian 2009), and evidence of fuel tourism and cross-border dynamics underscore the importance of better understanding elasticity dynamics. \\
+
+Following from Bates \& Kim (JAE 2024), the parent paper for this study, it has been shown that elasticity varies across states. By using changes in tax rates as instruments, they estimate gas price elasticity for each locale before aggregating the results using what they call Per-Cluster Instrumental Variables (PCIV) estimation. This study extracts the elasticity estimates before the aggregation step, and evaluates potential underlying sources of heterogeneity by considering the effects environments, transportation infrastructure, and demographic characteristics on fuel elasticity. \\
+
+By pulling data from a number of sources, we consider land area, temperature, rainfall, flatness, road miles, road urbanization rates, public transportation usages, population density, border county population share, and drivers license uptake as predictors of consumer responsiveness in simple linear regressions, using pre-period data sources to mitigate endogeneity concerns. \\
+
+Our findings indicate that larger locales have more inelastic demand, possibly due to larger travel distances within the state, or an inability to cross borders to benefit from cheaper adjacent market. States with more favorable weather also tend to have less price responsiveness, which could be due to more active, outdoor lifestyles. States with higher road urbanization and population densities show more elasticity, as do states with larger shares of their population living near borders, consistent with consumers in more dense city centers having less vehicle dependence, and border residents taking advantage of alternative, cheaper fuel markets as well increased competition. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DATA DESCRIPTION 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Data}
+For this paper, we consider a variety of data points combined at the state level as described below. Wherever possible, we pull numbers from 1980 to avoid potential endogeneity concerns, as this predates the original paper's gas price data source. 
+
+\subsection{State Elasticity Estimates}
+This paper uses state-specific elasticity estimates in order to explore underlying sources of heterogeneity. These elasticity estimates come from Bates \& Kim (JAE 2024) which uses a novel Per-Cluster Instrumental Variables (PCIV) approach to leverage state gas tax changes in order to estimate gas price elasticity state-by-state before aggregating to a nationwide average. This paper effectively takes elasticity measures from before the aggregation step and uses them as the outcome variable. \\
+
+We further use this data to identify which side of the border tends to be cheaper, to better account for fuel tourism - when a consumer crosses the border to benefit from cheaper gas prices. To this end, we consider three binary variants of ``cheaper neighboring gas'' prices, preferring the ``frequently cheaper'' border-share measure: (1) neighbor is cheaper more often, (2) neighbor has cheaper average prices, and (3) neighbor has cheaper median prices. \\
+
+More specifically, using 348 monthly gas price observations from 1989-2018, we consider a locale to have a frequently cheaper neighbor if we observe lower prices in 215 months, or 61.78\% of the observed time period. To give a better sense of these definitions: Alaska and Hawaii of course never have cheaper neighbors, while Delaware and Rhode Island tend to have cheaper prices than their neighbors, and California, Florida and Illinois tend to be more expensive than their neighboring counterparts. \\
+
+\subsection{U.S. Census Data}
+Using IPUMS, we pull 1980 state populations as well as the 1980 percentage of each population using public transportation to get to work as well as land area. Additionally, we use Census data to measure the share of each state's population living in a border county by combining county population and county adjacency data files, which we explore in greater detail by combining border population share data with the binary ``cheaper neighboring gas'' variables described above. \\
+
+\subsection{Highway Statistics}
+In order to measure the number of drivers for each locale, as well as rural vs urban road mileage, data is manually pulled from Highway Statistics 1980, by the U.S. Department of Transportation's Federal Highway Administration. The number of licenses in each state is used to analytically weight the regressions to follow, acting as a proxy for each state's household demand for gasoline, which was considered a better option over simple 1980 population measures, as it better isolates the drivers for each locale. Road miles are also used to measure the prevalence of roads within each locale, with 1980 urban vs rural road-mile classifications used to measure urbanization. \\
+
+\subsection{Weather Data}
+To measure weather quality of each locale, we pull data abstracts from National Centers for Environmental Information, National Oceanic and Atmospheric Administration (\url{neia.noaa.gov}) for 1980. Specifically, we take the minimum, maximum, and average annual temperature as well as inches of rainfall to construct a weather quality index via principal component analysis, where states like Hawaii and Florida are characterized as ``most favorable'' and states like Alaska and North Dakota as ``least favorable''. \\
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=4.5in]{weather_index_screeplot.eps}
+		\caption[Weather Index Scree Plot]{The above scree plot indicates that 3 components are necessary to sufficiently summarize our weather data.}
+		\label{weather_index_screeplot}
+	\end{center}
+\end{figure}
+
+\begin{table}
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/weather_index_correlation.tex}
+		\caption[Weather Index Correlation Matrix]{The PCA weather index is strongly correlated with its underlying factors.}
+		\label{weather_index_correlation}
+	\end{center}
+\end{table}
+
+\subsection{State Flatness Data}
+We use flatness data from Dobson \& Campbell (2014) who conduct an analysis of the contiguous U.S. + D.C. using elevation data to categorize 90-meter cells as ``flat'', ``flatter'', ``flattest'', or ``not flat''. In a similar fashion to the weather quality index, a flatness index is constructed in efforts to reduce the number of restrictions on the data while maintaining a robust measure of state flatness, with states like Florida, Illinois and Louisiana being identified as the flattest states, and West Virginia, New Hampshire, and Vermont as the least flat. 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=4.5in]{flatness_index_screeplot.eps}
+		\caption[Flatness Index Scree Plot]{For the flatness index, two factors are sufficient to construct a reliable index.}
+		\label{flatness_index_screeplot}
+	\end{center}
+\end{figure}
+
+\begin{table}
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/flatness_index_correlation.tex}
+		\caption[Flatness Index Correlation Matrix]{The PCA flatness index is strongly correlated with its underlying factors.}
+		\label{flatness_index_correlation}
+	\end{center}
+\end{table}
+
+\begin{center}
+	\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/dstats_y1.tex}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	METHODOLOGY & RESULTS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methodology \& Results}
+This paper takes a simple, regression-based approach to exploring underlying heterogeneity. At this stage the following simple equation is used. 
+
+%	Estimating Equation 
+\begin{equation} 
+	Elasticity^{o}_{s} = \alpha + \boldsymbol{X_{s}} \boldsymbol{\beta} + u_{s} 
+\end{equation}
+
+We use estimates taken from Bates \& Kim (JAE 2024) as outcomes to explore predictors of heterogeneous gas price elasticity, denoted by $Elasticity^{o}_{s}$, primarily using the estimates from their model without controls, termed $Elasticity^{1}_{s}$. As a robustness exercise, we further consider estimates from the model with controls, signified by $Elasticity^{2}_{s}$, which has been relegated to the appendix. $\boldsymbol{X_{s}}$ represents a series of environmental, transportation infrastructure, and population-based determinants of heterogeneity as described in the data section and presented in the tables to follow. $\boldsymbol{\beta}$ represents our coefficients of interest, while $\alpha$ acts as a constant term. Regressions are analytically weighted based on the number of drivers licenses in each locale in 1980, chosen as a proxy to represent the driving population. 
+
+%	Main Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_main_w.tex}
+		\label{main_estimates_w}
+		\caption[Main Predictor Estimates, Weighted]{Road urbanization, population density, and larger population shares along a border with a cheaper neighboring locale predict higher elasticity, while land area and weather quality are associated with inelasticity.}
+	\end{center}
+\end{table}
+
+%	Environmental Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_environmental_w.tex}
+		\label{environmental_estimates_w}
+		\caption[Environmental Predictor Estimates, Weighted]{Land area is the strongest predictor of elasticity, followed by weather quality, while flatness has little effect.}
+	\end{center}
+\end{table}
+
+%	Transportation Infrastructure Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_transportation_w.tex}
+		\label{transportation_estimates_w}
+		\caption[Transportation Infrastructure Predictor Estimates, Weighted]{Overall road development and pre-period public transportation usages have little effect , while locales with more urbanized road networks are more elastic.}
+	\end{center}
+\end{table}
+
+%	Demographic Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_demographic_w.tex}
+		\label{demographic_estimates_w}
+		\caption[Demographic Predictor Estimates, Weighted]{More dense populations and states with larger border-shares have higher elasticity, while states with higher drivers license rates are relatively inelastic.}
+	\end{center}
+\end{table}
+
+%	Pop-Share Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_pop_shares_w.tex}
+		\label{pop_share_estimates_w}
+		\caption[Cheaper Gas Border Predictor Estimates, Weighted]{Further exploring border county populations with cross-state prices in mind, our estimates suggest that not only does border density influence customer responsiveness, which side of the border is cheaper matters as well.}
+	\end{center}
+\end{table}
+
+As mentioned, while full robustness check results have been relegated to the appendix, the coefficient estimates maintain largely the same sign despite fluctuations in significance levels. These relatively-constant results indicate that our findings are not overly sensitive to weighting decisions or to our decision to use elasticity estimates from the model without controls. \\
+
+We have additionally considered bootstrap-corrected standard errors in order to account for uncertainty when using elasticity estimates as outcome variables, with our findings remaining stable despite the correction, as discussed in the appendix. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DISCUSSION 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+This study provides new evidence that gasoline price responsiveness varies meaningfully across states, and that weather, geographic, and socioeconomic factors drive these differences. From table \ref{main_estimates_w}, this analysis shows that consumers in larger locales have substantially lower demand elasticity, suggesting that larger territories constrain the household's ability to adjust their behaviors when fuel costs increase. Larger states tend to have longer commuting distances and fewer substitutes for car travel, limiting the margin for consumer adjustment, something which could be explored in further detail with regard to commercial truck drivers. Our land area finding appears to be central in predicting elasticity. \\
+
+Weather conditions also have a significant effect, where states with warm, consistently favorable weather such as Hawaii, California, and Florida have lower elasticity, consistent with year-round reliability for drivers, who experience less frequent weather-based barriers. Together with land area, this suggests that the physical environment within a state can foster vehicle dependence, reducing price responsiveness. \\ 
+
+In contrast, states with a larger share of their population living near their borders show higher gas price elasticity. This aligns with increased levels of competition and cross-border leakages where households can benefit from adjacent fuel markets when buying gas - fuel tourism. This flexibility in their purchasing decisions act as a margin for behavioral adaptations when prices increase. Turning to our cheaper neighbor measures, we find evidence that not only does the existence of a border matter, but which side of the border is cheaper increases elasticity as well. \\
+
+We also find evidence that locales with more urbanized road networks and denser populations are more responsive to price changes, suggesting that urban environments with more amenities in close proximity facilitate demand responses. \\
+
+Although these findings are preliminary at this stage, they offer important insights for policy evaluation in energy, environmental regulations, and transportation planning. Many of these decisions rely on price incentives their responses, and a more robust understanding of how local and regional factors shape these responses can be pivotal. For example, price-based policies may be less effective in larger, warmer areas, whereas in locales with large border populations there may be leakage concerns confounding the observed efficacy of such policies if consumers are simply changing the location of their purchases to another locale. If possible, regional coordination carries potential to mitigate these spillover demand or tax competition concerns. \\ 
+
+Overall, our results underline the importance of thoughtful consideration of state characteristics in policy development and evaluation. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	REFERENCES 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+Bates, M., \& Kim, S. (2024). Estimating the price elasticity of gasoline demand in correlated random coefficient models with endogeneity. Journal of Applied Econometrics, 39(4), 679–696. \url{https://doi.org/10.1002/jae.3042} \\
+
+Coglianese, John, et al. "Anticipation, tax avoidance, and the price elasticity of gasoline demand." Journal of Applied Econometrics 32.1 (2017): 1-15. \\
+
+Dobson, J. E., \& Campbell, J. S. (2014). The flatness of U.S. states. Geographical Review, 104(1), 1–9. \url{https://doi.org/10.1111/j.1931-0846.2014.12001.x} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	APPENDIX 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	BOOTSTRAPPED STANDARD ERRORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bootstrapped Standard Errors}
+As a result of using estimated elasticities as outcomes in my regressions, which introduces uncertainty to our regressions, we correct the standard errors via bootstrapping, running 500 iterations of our main regressions with re-sampling by locale. While this correction does not largely change our results, we do find stronger predictive power from weather quality, border population share and licensure rates, and we find that urbanization and population density may be less explanatory than previous results suggested, although still statistically significant. \\
+
+%	Bootstrap-Corrected Main Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_main_w_boot.tex}
+		\label{main_estimates_w_boot}
+		\caption[Bootstrap-Corrected Main Predictor Estimates, Weighted]{Using bootstrap-corrected standard errors, we find similar significance for the estimates in columns (1), (2), (3), and (5), while population density becomes less statistically significant, and the weather index becomes the most explanatory in the full regression with all 5 predictors.}
+	\end{center}
+\end{table}
+
+%	Bootstrap-Corrected Environmental Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_environmental_w_boot.tex}
+		\label{environmental_estimates_w_boot}
+		\caption[Bootstrap-Corrected Environmental Predictor Estimates, Weighted]{Using bootstrap-corrected standard errors, our results remain unchanged when considering environmental predictors.}
+	\end{center}
+\end{table}
+
+%	Bootstrap-Corrected Transportation Infrastructure Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_transportation_w_boot.tex}
+		\label{transportation_estimates_w_boot}
+		\caption[Bootstrap-Corrected Transportation Infrastructure Predictor Estimates, Weighted]{Using bootstrap-corrected standard errors, our results remain largely unchanged when considering transportation network predictors, although the level of urbanization becomes less statistically significant.}
+	\end{center}
+\end{table}
+
+%	Bootstrap-Corrected Demographic Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_demographic_w_boot.tex}
+		\label{demographic_estimates_w_boot}
+		\caption[Bootstrap-Corrected Demographic Predictor Estimates, Weighted]{Using bootstrap-corrected standard errors, our results change slightly when considering demographics, with population density becoming less explanatory, and border population share and licensure rate becoming more predictive.}
+	\end{center}
+\end{table}
+
+%	Bootstrap-Corrected Pop-Share Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_pop_shares_w_boot.tex}
+		\label{pop_share_estimates_w_boot}
+		\caption[Bootstrap-Corrected Cheaper Gas Border Predictor Estimates, Weighted]{Using bootstrap-corrected standard errors, our results are largely unchanged when considering border population share factors, with border population share becoming more strongly predictive of elasticity.}
+	\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	UNWEIGHTED ESTIMATES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Unweighted Estimates}
+As described in the main body of the paper, the number of drivers licenses in each jurisdiction in 1980 are used to analytically weight elasticity regressions, acting as indirect measures of the demand side of each locale's fuel market. To alleviate concerns with this decision, the form of the following tables of estimates are identical to the main results, but without weights applied. We find that the direction of our estimates remains consistent, despite changes in significance, giving credibility to the weighting decision. \\
+
+%	Main Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_main.tex}
+		\label{main_estimates}
+		\caption[Main Predictor Estimates, Unweighted]{To check the robustness of our analytic regression weights, we re-run each regression without weights. While the significance of our estimates changes, the signs remain invariant}
+	\end{center}
+\end{table}
+
+%	Environmental Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_environmental.tex}
+		\label{environmental_estimates}
+		\caption[Environmental Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates}, we find largely similar results in our unweighted regressions.}
+	\end{center}
+\end{table}
+
+%	Transportation Infrastructure Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_transportation.tex}
+		\label{transportation_estimates}
+		\caption[Transportation Infrastructure Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates}, we find largely similar results in our unweighted regressions.}
+	\end{center}
+\end{table}
+
+%	Demographic Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_demographic.tex}
+		\label{demographic_estimates}
+		\caption[Demographic Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates}, we find largely similar results in our unweighted regressions.}
+	\end{center}
+\end{table}
+
+%	Pop-Share Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y1_pop_shares.tex}
+		\label{pop_share_estimates}
+		\caption[Cheaper Gas Border Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates}, we find largely similar results in our unweighted regressions.}
+	\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	WITH CONTROLS, WEIGHTED ESTIMATES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Robustness Check, Elasticity\textsuperscript{2}, Weighted Estimates}
+To further explore the robustness of our results, we consider alternate estimates of elasticity, also taken from Bates \& Kim (JAE 2024), taken from their Model 2, which utilizes a series of control variables. We first check our results in weighted regressions below, and in a later section we continue with another check without weights. \\
+
+Our main findings maintain the same sign despite reduced significance, somewhat strengthening our findings and providing evidence against over-sensitivity. \\
+
+%	Main Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_main_w.tex}
+		\label{main_estimates_y2_w}
+		\caption[Alternate Main Predictor Estimates, Weighted]{Despite using different elasticity estimates, our findings maintain the same direction, and population density remains as the strongest predictor of gas price elasticity.}
+	\end{center}
+\end{table}
+
+%	Environmental Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_environmental_w.tex}
+		\label{environmental_estimates_y2_w}
+		\caption[Alternate Environmental Predictor Estimates, Weighted]{Continuing as described in table \ref{main_estimates_y2_w}, we find largely similar results using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%	Transportation Infrastructure Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_transportation_w.tex}
+		\label{transportation_estimates_y2_w}
+		\caption[Alternate Transportation Infrastructure Predictor Estimates, Weighted]{Continuing as described in table \ref{main_estimates_y2_w}, we find largely similar results using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%	Demographic Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_demographic_w.tex}
+		\label{demographic_estimates_y2_w}
+		\caption[Alternate Demographic Predictor Estimates, Weighted]{Continuing as described in table \ref{main_estimates_y2_w}, we find largely similar results using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%	Pop-Share Predictors, Weighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_pop_shares_w.tex}
+		\label{pop_share_estimates_y2_w}
+		\caption[Alternate Cheaper Gas Border Predictor Estimates, Weighted]{Continuing as described in table \ref{main_estimates_y2_w}, we find largely similar results using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	WITH CONTROLS, UNWEIGHTED ESTIMATES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Robustness Check, Elasticity\textsuperscript{2}, Unweighted Estimates}
+Continuing in similar fashion to the above, we finally evaluate the sensitivity of our results using both the alternate elasticity measure, $Elasticity^{2}_{s}$ in unweighted regressions. As before, we find largely unchanged signs despite fluctuations in the significance of our estimates. \\
+
+All-in-all, we believe that across these various robustness checks, our relatively-constant results indicate that our analysis is not overly-sensitive to specification changes and serve as a reliable preliminary analysis as to the underlying drivers of heterogeneity in gas price elasticity across U.S. states and D.C. 
+
+%	Main Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_main.tex}
+		\label{main_estimates_y2}
+		\caption[Alternate Main Predictor Estimates, Unweighted]{Turning to unweighted estimates using our secondary elasticity outcome, we once again find largely similar results, indicating that our weighting decision is not altering our results unduly.}
+	\end{center}
+\end{table}
+
+%	Environmental Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_environmental.tex}
+		\label{environmental_estimates_y2}
+		\caption[Alternate Environmental Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates_y2}, we find largely similar results in unweighted regressions using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%	Transportation Infrastructure Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_transportation.tex}
+		\label{transportation_estimates_y2}
+		\caption[Alternate Transportation Infrastructure Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates_y2}, we find largely similar results in unweighted regressions using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%	Demographic Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_demographic.tex}
+		\label{demographic_estimates_y2}
+		\caption[Alternate Demographic Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates_y2}, we find largely similar results in unweighted regressions using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+%	Pop-Share Predictors, Unweighted
+\begin{table}[H]
+	\begin{center}
+		\input{C:/Users/david/coding/03_GAS_TAX_HETEROGENEITY_paper/6000_LaTeX/etable_y2_pop_shares.tex}
+		\label{pop_share_estimates_y2}
+		\caption[Alternate Cheaper Gas Border Predictor Estimates, Unweighted]{Continuing as described in table \ref{main_estimates_y2}, we find largely similar results in unweighted regressions using our alternate elasticity measure.}
+	\end{center}
+\end{table}
+
+\end{document}

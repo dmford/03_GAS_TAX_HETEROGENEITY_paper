@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+            &\multicolumn{6}{c}{Gas Price Elasticity}                                                                                           \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+\hline
+Flattest    &      -1.018\sym{***}&                     &                     &                     &                     &       1.858\sym{**} \\
+            &     (0.057)         &                     &                     &                     &                     &     (0.868)         \\
+[1em]
+Flatter     &                     &      -0.260\sym{***}&                     &                     &                     &      -2.642\sym{***}\\
+            &                     &     (0.007)         &                     &                     &                     &     (0.879)         \\
+[1em]
+Flat        &                     &                     &      -0.051\sym{***}&                     &                     &       1.140\sym{***}\\
+            &                     &                     &     (0.001)         &                     &                     &     (0.360)         \\
+[1em]
+Not Flat    &                     &                     &                     &      -0.014\sym{***}&                     &      -0.202\sym{**} \\
+            &                     &                     &                     &     (0.000)         &                     &     (0.096)         \\
+[1em]
+Any Flat    &                     &                     &                     &                     &       0.014\sym{***}&                     \\
+            &                     &                     &                     &                     &     (0.000)         &                     \\
+[1em]
+Constant    &      -0.488\sym{***}&      -0.503\sym{***}&      -0.511\sym{***}&      -0.514\sym{***}&      -1.878\sym{***}&      -0.504\sym{***}\\
+            &     (0.023)         &     (0.022)         &     (0.022)         &     (0.022)         &     (0.007)         &     (0.038)         \\
+\hline
+Pop.-Weights:&          No         &          No         &          No         &          No         &          No         &          No         \\
+States:     &      49.000         &      49.000         &      49.000         &      49.000         &      49.000         &      49.000         \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

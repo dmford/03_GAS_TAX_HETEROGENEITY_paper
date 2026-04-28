@@ -1,0 +1,35 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{7}{c}}
+\hline\hline
+            &\multicolumn{7}{c}{Gas Price Elasticity}                                                                                                                 \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         &\multicolumn{1}{c}{(7)}         \\
+\hline
+Land Area   &       0.045         &                     &                     &                     &                     &                     &       0.331         \\
+            &     (0.199)         &                     &                     &                     &                     &                     &     (0.413)         \\
+[1em]
+flattest    &                     &      -1.113         &                     &                     &                     &                     &       0.000         \\
+            &                     &     (0.885)         &                     &                     &                     &                     &         (.)         \\
+[1em]
+flatter     &                     &                     &      -1.238\sym{***}&                     &                     &                     &      -1.504         \\
+            &                     &                     &     (0.424)         &                     &                     &                     &     (0.906)         \\
+[1em]
+flat        &                     &                     &                     &       0.116         &                     &                     &      -0.597         \\
+            &                     &                     &                     &     (0.485)         &                     &                     &     (0.486)         \\
+[1em]
+Steepness   &                     &                     &                     &                     &      -0.003         &                     &      -0.760         \\
+            &                     &                     &                     &                     &     (0.291)         &                     &     (0.935)         \\
+[1em]
+flatness\_index&                     &                     &                     &                     &                     &      -0.022         &      -0.008         \\
+            &                     &                     &                     &                     &                     &     (0.019)         &     (0.070)         \\
+[1em]
+Constant    &      -0.524\sym{***}&      -0.493\sym{***}&      -0.430\sym{***}&      -0.559\sym{***}&      -0.531\sym{***}&      -0.533\sym{***}&       0.211         \\
+            &     (0.034)         &     (0.034)         &     (0.041)         &     (0.121)         &     (0.179)         &     (0.020)         &     (0.537)         \\
+\hline
+Weights     &          No         &          No         &          No         &          No         &          No         &          No         &          No         \\
+States:     &      51.000         &      49.000         &      49.000         &      49.000         &      49.000         &      49.000         &      49.000         \\
+\hline\hline
+\multicolumn{8}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{8}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

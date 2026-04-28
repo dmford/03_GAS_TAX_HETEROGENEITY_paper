@@ -1,0 +1,24 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\hline\hline
+            &\multicolumn{4}{c}{Gas Price Elasticity}                                               \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         \\
+\hline
+Population  &      -0.001         &                     &                     &                     \\
+            &     (0.003)         &                     &                     &                     \\
+[1em]
+Pop. Density&                     &      -0.011\sym{***}&                     &                     \\
+            &                     &     (0.002)         &                     &                     \\
+[1em]
+Border Pop. &                     &                     &      -0.168\sym{**} &                     \\
+            &                     &                     &     (0.066)         &                     \\
+[1em]
+Licensure   &                     &                     &                     &       0.780\sym{*}  \\
+            &                     &                     &                     &     (0.415)         \\
+\hline
+Weights     &         Yes         &         Yes         &         Yes         &         Yes         \\
+Locales:    &      51.000         &      51.000         &      51.000         &      51.000         \\
+\hline\hline
+\end{tabular}
+}

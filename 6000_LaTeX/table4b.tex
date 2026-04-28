@@ -1,0 +1,32 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\hline\hline
+            &\multicolumn{6}{c}{Elasticity from Model 1, Without Covariates}                                                                    \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+\hline
+Flatness    &       0.013\sym{***}&                     &                     &                     &                     &       0.011\sym{***}\\
+            &     (0.000)         &                     &                     &                     &                     &     (0.001)         \\
+[1em]
+Land Area   &                     &       0.838\sym{***}&                     &                     &                     &       0.885\sym{***}\\
+            &                     &     (0.212)         &                     &                     &                     &     (0.321)         \\
+[1em]
+Border Size &                     &                     &       0.000\sym{**} &                     &                     &       0.000         \\
+            &                     &                     &     (0.000)         &                     &                     &     (0.000)         \\
+[1em]
+Border Pop. &                     &                     &                     &      -0.176\sym{**} &                     &       0.030         \\
+            &                     &                     &                     &     (0.068)         &                     &     (0.070)         \\
+[1em]
+pub\_tran\_average\_1980&                     &                     &                     &                     &      -0.513         &      -0.253         \\
+            &                     &                     &                     &                     &     (0.386)         &     (0.269)         \\
+[1em]
+Constant    &      -1.891\sym{***}&      -0.629\sym{***}&      -0.684\sym{***}&      -0.496\sym{***}&      -0.530\sym{***}&      -1.751\sym{***}\\
+            &     (0.034)         &     (0.035)         &     (0.059)         &     (0.034)         &     (0.032)         &     (0.141)         \\
+\hline
+Pop.-Weighted&         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+States:     &      49.000         &      51.000         &      51.000         &      51.000         &      51.000         &      49.000         \\
+\hline\hline
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.1\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

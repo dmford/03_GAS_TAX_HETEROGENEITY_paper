@@ -1,0 +1,21 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+            &\multicolumn{3}{c}{Gas Price Elasticity}                         \\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         \\
+\hline
+Land Area   &       0.834\sym{***}&                     &                     \\
+            &     (0.211)         &                     &                     \\
+[1em]
+Weather Ind.&                     &       0.050\sym{***}&                     \\
+            &                     &     (0.016)         &                     \\
+[1em]
+Flatness Ind.&                     &                     &       0.016         \\
+            &                     &                     &     (0.021)         \\
+\hline
+Weights     &         Yes         &         Yes         &         Yes         \\
+Locales:    &      51.000         &      51.000         &      49.000         \\
+\hline\hline
+\end{tabular}
+}
