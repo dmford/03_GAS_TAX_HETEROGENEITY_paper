@@ -1,0 +1,277 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\david\coding\03_GAS_TAX_HETEROGENEITY_paper\3000_code\SMCL_logs\boot_append.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}11 Dec 2025, 14:41:42
+{txt}
+{com}. 
+. cd "~\coding\03_GAS_TAX_HETEROGENEITY_paper\2000_data\boot_saves\"
+{res}C:\Users\david\coding\03_GAS_TAX_HETEROGENEITY_paper\2000_data\boot_saves
+{txt}
+{com}. 
+. local tgroups t1 t2 t3 t4 t5 
+{txt}
+{com}. 
+. local whichtable 1
+{txt}
+{com}. foreach t of local tgroups {c -(}
+{txt}  2{com}.         display "Appending Table `t'..."
+{txt}  3{com}.         
+.         local filelist : dir "." files "*_`t'*.dta" 
+{txt}  4{com}.         
+.         local n : word count `filelist' 
+{txt}  5{com}.         display "Found `n' files for tgroup `t'" 
+{txt}  6{com}.         
+.         if `n' != 11 {c -(}
+{txt}  7{com}.                 display as error "Warning: expected 11 files but found `n' for tgroup `t'"
+{txt}  8{com}.         {c )-}
+{txt}  9{com}.         
+.         local first : word 1 of `filelist' 
+{txt} 10{com}.         use "`first'", clear
+{txt} 11{com}.         
+.         forvalues i = 2/`n' {c -(}
+{txt} 12{com}.                 local f : word `i' of `filelist' 
+{txt} 13{com}.                 display "Appending `f'" 
+{txt} 14{com}.                 append using "`f'" 
+{txt} 15{com}.         {c )-}
+{txt} 16{com}.         
+.         qui count 
+{txt} 17{com}.         display as result "combined_`t'.dta has " r(N) " bootstrapped estimates"
+{txt} 18{com}. 
+.         ds 
+{txt} 19{com}.         foreach var of varlist `r(varlist)' {c -(}
+{txt} 20{com}.                 rename `var' `var'_`t'
+{txt} 21{com}.         {c )-}
+{txt} 22{com}. 
+.         gen table = `whichtable'
+{txt} 23{com}.         gen merge_id = _n
+{txt} 24{com}.         order merge_id table
+{txt} 25{com}.         drop if merge_id > 500
+{txt} 26{com}.         
+.         qui count 
+{txt} 27{com}.         display as result "combined_`t'.dta has " r(N) " bootstrapped estimates after dropping"
+{txt} 28{com}. 
+.         save "combined\combined_`t'.dta", replace 
+{txt} 29{com}.         display "Saved combined_`t'.dta"
+{txt} 30{com}.         
+.         local ++whichtable
+{txt} 31{com}. {c )-}
+Appending Table t1...
+Found 11 files for tgroup t1
+Appending ch3_boot_t1_s1.dta
+Appending ch3_boot_t1_s10.dta
+Appending ch3_boot_t1_s2.dta
+Appending ch3_boot_t1_s3.dta
+Appending ch3_boot_t1_s4.dta
+Appending ch3_boot_t1_s5.dta
+Appending ch3_boot_t1_s6.dta
+Appending ch3_boot_t1_s7.dta
+Appending ch3_boot_t1_s8.dta
+Appending ch3_boot_t1_s9.dta
+{res}combined_t1.dta has 620 bootstrapped estimates
+{txt}{col 1}b_land_area{col 15}b_weather_~x{col 29}b_urban_ro~e{col 43}b_pop_dens~y{col 57}b_freq_bor~e{col 71}b1_full{col 85}b2_full{col 99}b3_full{col 113}b4_full{col 127}b5_full
+{res}{txt}(120 observations deleted)
+{res}combined_t1.dta has 500 bootstrapped estimates after dropping
+{txt}{p 0 4 2}
+file {bf}
+combined\combined_t1.dta{rm}
+saved
+{p_end}
+Saved combined_t1.dta
+Appending Table t2...
+Found 11 files for tgroup t2
+Appending ch3_boot_t2_s1.dta
+Appending ch3_boot_t2_s10.dta
+Appending ch3_boot_t2_s2.dta
+Appending ch3_boot_t2_s3.dta
+Appending ch3_boot_t2_s4.dta
+Appending ch3_boot_t2_s5.dta
+Appending ch3_boot_t2_s6.dta
+Appending ch3_boot_t2_s7.dta
+Appending ch3_boot_t2_s8.dta
+Appending ch3_boot_t2_s9.dta
+{res}combined_t2.dta has 530 bootstrapped estimates
+{txt}{col 1}b_land_area{col 15}b_weather_~x{col 29}b_flatness~x
+{res}{txt}(30 observations deleted)
+{res}combined_t2.dta has 500 bootstrapped estimates after dropping
+{txt}{p 0 4 2}
+file {bf}
+combined\combined_t2.dta{rm}
+saved
+{p_end}
+Saved combined_t2.dta
+Appending Table t3...
+Found 11 files for tgroup t3
+Appending ch3_boot_t3_s1.dta
+Appending ch3_boot_t3_s10.dta
+Appending ch3_boot_t3_s2.dta
+Appending ch3_boot_t3_s3.dta
+Appending ch3_boot_t3_s4.dta
+Appending ch3_boot_t3_s5.dta
+Appending ch3_boot_t3_s6.dta
+Appending ch3_boot_t3_s7.dta
+Appending ch3_boot_t3_s8.dta
+Appending ch3_boot_t3_s9.dta
+{res}combined_t3.dta has 830 bootstrapped estimates
+{txt}{col 1}b_urban_mi~e{col 15}b_total_mi~e{col 29}b_urban_ro~e{col 43}b_pub_tran~e
+{res}{txt}(330 observations deleted)
+{res}combined_t3.dta has 500 bootstrapped estimates after dropping
+{txt}{p 0 4 2}
+file {bf}
+combined\combined_t3.dta{rm}
+saved
+{p_end}
+Saved combined_t3.dta
+Appending Table t4...
+Found 11 files for tgroup t4
+Appending ch3_boot_t4_s1.dta
+Appending ch3_boot_t4_s10.dta
+Appending ch3_boot_t4_s2.dta
+Appending ch3_boot_t4_s3.dta
+Appending ch3_boot_t4_s4.dta
+Appending ch3_boot_t4_s5.dta
+Appending ch3_boot_t4_s6.dta
+Appending ch3_boot_t4_s7.dta
+Appending ch3_boot_t4_s8.dta
+Appending ch3_boot_t4_s9.dta
+{res}combined_t4.dta has 710 bootstrapped estimates
+{txt}{col 1}b_state_pop{col 15}b_pop_dens~y{col 29}b_border_p~e{col 43}b_licensure
+{res}{txt}(210 observations deleted)
+{res}combined_t4.dta has 500 bootstrapped estimates after dropping
+{txt}{p 0 4 2}
+file {bf}
+combined\combined_t4.dta{rm}
+saved
+{p_end}
+Saved combined_t4.dta
+Appending Table t5...
+Found 11 files for tgroup t5
+Appending ch3_boot_t5_s1.dta
+Appending ch3_boot_t5_s10.dta
+Appending ch3_boot_t5_s2.dta
+Appending ch3_boot_t5_s3.dta
+Appending ch3_boot_t5_s4.dta
+Appending ch3_boot_t5_s5.dta
+Appending ch3_boot_t5_s6.dta
+Appending ch3_boot_t5_s7.dta
+Appending ch3_boot_t5_s8.dta
+Appending ch3_boot_t5_s9.dta
+{res}combined_t5.dta has 510 bootstrapped estimates
+{txt}{col 1}b_border_p~e{col 15}b_freq_bor~e{col 29}b_avg_bord~e{col 43}b_med_bord~e
+{res}{txt}(10 observations deleted)
+{res}combined_t5.dta has 500 bootstrapped estimates after dropping
+{txt}{p 0 4 2}
+file {bf}
+combined\combined_t5.dta{rm}
+saved
+{p_end}
+Saved combined_t5.dta
+
+{com}. 
+. use "combined\combined_t1.dta", replace
+{txt}
+{com}. merge 1:1 merge_id using "combined\combined_t2.dta", nogen
+{res}
+{txt}{col 5}Result{col 33}Number of obs
+{col 5}{hline 41}
+{col 5}Not matched{col 30}{res}               0
+{txt}{col 5}Matched{col 30}{res}             500{txt}  
+{col 5}{hline 41}
+
+{com}. merge 1:1 merge_id using "combined\combined_t3.dta", nogen
+{res}
+{txt}{col 5}Result{col 33}Number of obs
+{col 5}{hline 41}
+{col 5}Not matched{col 30}{res}               0
+{txt}{col 5}Matched{col 30}{res}             500{txt}  
+{col 5}{hline 41}
+
+{com}. merge 1:1 merge_id using "combined\combined_t4.dta", nogen
+{res}
+{txt}{col 5}Result{col 33}Number of obs
+{col 5}{hline 41}
+{col 5}Not matched{col 30}{res}               0
+{txt}{col 5}Matched{col 30}{res}             500{txt}  
+{col 5}{hline 41}
+
+{com}. merge 1:1 merge_id using "combined\combined_t5.dta", nogen
+{res}
+{txt}{col 5}Result{col 33}Number of obs
+{col 5}{hline 41}
+{col 5}Not matched{col 30}{res}               0
+{txt}{col 5}Matched{col 30}{res}             500{txt}  
+{col 5}{hline 41}
+
+{com}. 
+. foreach t of local tgroups {c -(}
+{txt}  2{com}.         display ""
+{txt}  3{com}.     di "Standard deviations for table `t':"
+{txt}  4{com}.     ds *_`t'
+{txt}  5{com}.     tabstat `r(varlist)', stat(sd)
+{txt}  6{com}. {c )-}
+
+Standard deviations for table t1:
+{txt}{col 1}b_land_are~1{col 15}b_weather_~1{col 29}b_urban_ro~1{col 43}b_pop_dens~1{col 57}b_freq_bor~1{col 71}b1_full_t1{col 85}b2_full_t1{col 99}b3_full_t1{col 113}b4_full_t1{col 127}b5_full_t1
+
+   Stats {...}
+{c |}{...}
+  b_land~1  b_weat~1  b_urba~1  b_pop_~1  b_freq~1  b1_ful~1  b2_ful~1  b3_ful~1  b4_ful~1  b5_ful~1
+{hline 9}{c +}{hline 100}
+{ralign 8:SD} {...}
+{c |}{...}
+ {res} .3236225  .0142985  .1079506  .0060245    .08626  .4453885  .0165537  .2843897  .0196644  .0941548
+{txt}{hline 9}{c BT}{hline 100}
+
+Standard deviations for table t2:
+{col 1}b_land_are~2{col 15}b_weather_~2{col 29}b_flatness~2
+
+   Stats {...}
+{c |}{...}
+  b_land~2  b_weat~2  b_flat~2
+{hline 9}{c +}{hline 30}
+{ralign 8:SD} {...}
+{c |}{...}
+ {res} .3077995  .0143579  .0188087
+{txt}{hline 9}{c BT}{hline 30}
+
+Standard deviations for table t3:
+{col 1}b_urban_mi~3{col 15}b_total_mi~3{col 29}b_urban_ro~3{col 43}b_pub_tran~3
+
+   Stats {...}
+{c |}{...}
+  b_urba..  b_tota~3  b_~re_t3  b_pub_~3
+{hline 9}{c +}{hline 40}
+{ralign 8:SD} {...}
+{c |}{...}
+ {res} .2299712  .0592337  .1149954  .8053427
+{txt}{hline 9}{c BT}{hline 40}
+
+Standard deviations for table t4:
+{col 1}b_state_po~4{col 15}b_pop_dens~4{col 29}b_border_p~4{col 43}b_licensur~4
+
+   Stats {...}
+{c |}{...}
+  b_stat~4  b_pop_~4  b_bord~4  b_lice~4
+{hline 9}{c +}{hline 40}
+{ralign 8:SD} {...}
+{c |}{...}
+ {res}  .004268  .0063505  .0654594  .3865653
+{txt}{hline 9}{c BT}{hline 40}
+
+Standard deviations for table t5:
+{col 1}b_border_p~5{col 15}b_freq_bor~5{col 29}b_avg_bord~5{col 43}b_med_bord~5
+
+   Stats {...}
+{c |}{...}
+  b_bord~5  b_freq~5  b_avg_~5  b_med_~5
+{hline 9}{c +}{hline 40}
+{ralign 8:SD} {...}
+{c |}{...}
+ {res} .0632097  .0864578  .0845719  .0839692
+{txt}{hline 9}{c BT}{hline 40}
+
+{com}. 
+{txt}end of do-file
+
+{com}. exit, clear

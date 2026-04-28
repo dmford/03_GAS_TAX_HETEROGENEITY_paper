@@ -1,0 +1,713 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: 4-user 32-core network perpetual
+Serial number: 501606358866
+  Licensed to: Michael Bates
+               University of California, Riverside
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. More than 2 billion observations are allowed; see help obs_advice.
+      4. Maximum number of variables is set to 5,000; see help set_maxvar.
+      5. New update available; type -update all-
+
+. * t2_s5_boot.do
+
+. 
+. 
+. 
+. clear all 
+
+. 
+. 
+. 
+. * (1) HPCC cluster, and (2) personal machine: 
+
+. 
+. cd "/bigdata/mbateslab/dford013/coding/03_GAS_TAX_HETEROGENEITY_paper"
+/bigdata/mbateslab/dford013/coding/03_GAS_TAX_HETEROGENEITY_paper
+
+. 
+. *cd "~\coding\03_GAS_TAX_HETEROGENEITY_paper\"
+
+. 
+. 
+. 
+. *****************************************************************************
+> ***
+
+. 
+. 
+. 
+. capture log close
+
+. 
+. log using "3000_code/SMCL_logs/t2_s5_boot", smcl replace
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /bigdata/mbateslab/dford013/coding/03_GAS_TAX_HETEROGENEITY_paper/
+> 3000_code/SMCL_logs/t2_s5_boot.smcl
+  log type:  smcl
+ opened on:  10 Dec 2025, 17:29:38
+
+. 
+. 
+. 
+. * list of predictors for table 
+
+. 
+. local predictors = "land_area weather_index flatness_index"
+
+. 
+. 
+. 
+. about 
+
+Stata/MP 16.1 for Unix (Linux 64-bit x86-64)
+Revision 11 Oct 2022
+Copyright 1985-2019 StataCorp LLC
+
+Total usable memory: 503.79 GB
+
+Stata license: 4-user 32-core network perpetual
+Serial number: 501606358866
+  Licensed to: Michael Bates
+               University of California, Riverside
+
+. 
+. 
+. 
+. * defining local macros 
+
+. 
+. local bootnum 50
+
+. 
+. local seed = floor(runiform(1,10000))
+
+. 
+. 
+. 
+. * loading working dataset (to merge with temp_all.dta)
+
+. 
+. use "2000_data/gas_elasticity_dataset.dta", replace 
+
+. 
+. gen statefip = state_fips 
+
+. 
+. 
+. 
+. * dropping old outcomes, will gen new ones in boot
+
+. 
+. drop b1_logprice b2_logprice elasticity
+
+. 
+. 
+. 
+. merge 1:m statefip using "pciv/PCIV/Application/EstimationData/temp_all.dta",
+>  nogen 
+(note: variable state_abbrev was str2, now str13 to accommodate using data's
+       values)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                            18,360  
+    -----------------------------------------
+
+. 
+. 
+. 
+. sort statefip year month 
+
+. 
+. *gen obsid = _n
+
+. 
+. bysort statefip (year month): gen obsid = _n
+
+. 
+. 
+. 
+. * this step is to expedite the troubleshooting 
+
+. 
+. *keep if year>=1990 & year<2000
+
+. 
+. 
+. 
+. save "2000_data/toboot_t2_s5", replace
+file 2000_data/toboot_t2_s5.dta saved
+
+. 
+. 
+. 
+. xtset, clear 
+
+. 
+. timer clear 
+
+. 
+. timer on 1
+
+. 
+. 
+. 
+. * dropping and defining program 
+
+. 
+. capture program drop ch3_boot, clear 
+
+. 
+. program ch3_boot, rclass
+  1. 
+. 
+. 
+. preserve 
+  2. 
+. 
+. 
+. display "running a bootstrap replication..."
+  3. 
+. 
+. 
+. *generate variable for coef =.
+. 
+. return scalar b_land_area = .
+  4. 
+. return scalar b_weather_index = .
+  5. 
+. return scalar b_flatness_index = .
+  6. 
+. 
+. 
+. 
+. 
+. *pciv regression
+. 
+. local i = 1
+  7. 
+. *forv i =  1/2{
+. 
+. 
+. 
+. if `i'==1 {
+  8. 
+. *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> ++;
+. 
+. dis "Regression without covariates"
+  9. 
+. *++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> ++;
+. 
+. 
+. 
+. local dcovars_rt ""
+ 10. 
+. local dcovars_miss_rt ""
+ 11. 
+. local  new_covars ""
+ 12. 
+. local  new_covars_miss ""
+ 13. 
+. local  covars ""
+ 14. 
+. local  covars_miss ""
+ 15. 
+. local ivlist dlogtax_rt
+ 16. 
+. local endoglist "dlogprice_rt"
+ 17. 
+. local new_ivlist "new_logtax"
+ 18. 
+. local new_endoglist "new_logprice"
+ 19. 
+. local pc_ivlist "logtax"
+ 20. 
+. local pc_endoglist "logprice"
+ 21. 
+. local options ""
+ 22. 
+. local lincomlist "dlogprice_rt"
+ 23. 
+. local new_lincomlist "new_logprice"
+ 24. 
+. local pc_lincomlist "logprice"
+ 25. 
+. local rf_lincomlist "dlogtax_rt"
+ 26. 
+. local rf_new_lincomlist "new_logtax"
+ 27. 
+. local rf_pc_lincomlist "logtax"
+ 28. 
+. 
+. 
+. 
+. 
+. }
+ 29. 
+. 
+. 
+. 
+. 
+. ********************************** PCIV *************************************
+> ***
+. 
+. 
+. 
+. *** first stage ***
+. 
+. 
+. 
+. * getting the residuals by regressing x1 and x2 on Z
+. 
+. 
+. 
+. 
+. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+ 30. 
+. 
+. 
+. gen `exog'_x_hat_dem`i'=. 
+ 31. 
+. 
+. 
+. sum statefip
+ 32. 
+. levelsof statefip, local(levels) 
+ 33. 
+. foreach k of local levels {
+ 34. 
+. reg  `exog' `pc_ivlist' if statefip==`k'
+ 35. 
+. predict `exog'_x_hat_dem`i'_`k', resid
+ 36. 
+. replace `exog'_x_hat_dem`i' = `exog'_x_hat_dem`i'_`k' if statefip==`k'
+ 37. 
+. }
+ 38. 
+. 
+. 
+. drop `exog'_x_hat_dem`i'_*
+ 39. 
+. }
+ 40. 
+. 
+. 
+. local m=1
+ 41. 
+. foreach endo of varlist `pc_endoglist' {
+ 42. 
+. gen x_hat_dem`i'_`m'=. 
+ 43. 
+. sum statefip
+ 44. 
+. levelsof statefip, local(levels) 
+ 45. 
+. foreach k of local levels {
+ 46. 
+. reg  `endo' `pc_ivlist' if statefip==`k'
+ 47. 
+. predict x_hat_dem`i'_`m'_`var'_`k', resid
+ 48. 
+. replace x_hat_dem`i'_`m' = x_hat_dem`i'_`m'_`var'_`k' if statefip==`k'
+ 49. 
+. }
+ 50. 
+. 
+. 
+. drop x_hat_dem`i'_`m'_*
+ 51. 
+. 
+. 
+. 
+. 
+. * regress residualized x1 on residualized x2, then obtain x1_tilde = x1 - del
+> ta_hat*x2
+. 
+. reg x_hat_dem`i'_`m' *_x_hat_dem`i'
+ 52. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+ 53. 
+. gen x_tilde`i'_`m'_b_`exog'=_b[`exog'_x_hat_dem`i']
+ 54. 
+. }
+ 55. 
+. 
+. 
+. gen x_tilde`i'_`m' = `endo'
+ 56. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+ 57. 
+. replace x_tilde`i'_`m'= x_tilde`i'_`m' - (x_tilde`i'_`m'_b_`exog'*`exog')
+ 58. 
+. }
+ 59. 
+. 
+. 
+. foreach var of varlist `pc_ivlist' {
+ 60. 
+. gen first_`m'_b`i'_`var'=.
+ 61. 
+. }
+ 62. 
+. gen first_`m'_resid`i'=x_tilde`i'_`m'
+ 63. 
+. 
+. 
+. * reg x1_tilde on z
+. 
+. sum statefip
+ 64. 
+. levelsof statefip, local(levels) 
+ 65. 
+. foreach k of local levels {
+ 66. 
+. reg  x_tilde`i'_`m' `pc_ivlist' if statefip==`k'
+ 67. 
+. 
+. 
+. * get the estimates from the first stage
+. 
+. foreach var of varlist `pc_ivlist' {
+ 68. 
+. replace first_`m'_b`i'_`var'=_b[`var'] if statefip==`k'
+ 69. 
+. replace first_`m'_resid`i'=first_`m'_resid`i'-first_`m'_b`i'_`var'*`var' if s
+> tatefip==`k'
+ 70. 
+. }
+ 71. 
+. }
+ 72. 
+. 
+. 
+. * recover the x_hat by adding gamma_hat*x2
+. 
+. gen x_hat`i'_`m'=0
+ 73. 
+. foreach var of varlist `pc_ivlist' {
+ 74. 
+. replace x_hat`i'_`m'= x_hat`i'_`m' + first_`m'_b`i'_`var'*`var'
+ 75. 
+. }
+ 76. 
+. 
+. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+ 77. 
+. replace x_hat`i'_`m' = x_hat`i'_`m' + x_tilde`i'_`m'_b_`exog'*`exog'
+ 78. 
+. }
+ 79. 
+. 
+. 
+. *f-stats
+. 
+. 
+. 
+. statsby temp_first_fstat_`m'_`i'=e(F), by(statefip) saving(statsby`i'_`m'_t2_
+> s5, replace): reg x_tilde`i'_`m' `pc_ivlist'
+ 80. 
+. 
+. 
+. sort statefip
+ 81. 
+. merge m:1 statefip using statsby`i'_`m'_t2_s5
+ 82. 
+. capture egen pickone`i'_`m' = tag(statefip)
+ 83. 
+. drop _merge 
+ 84. 
+. 
+. 
+. hotelling temp_first_fstat_`m'_`i' if pickone`i'_1==1
+ 85. 
+. 
+. 
+. gen first_fstat_`m'_`i'=r(T2)
+ 86. 
+. 
+. 
+. 
+. 
+. *standard errors
+. 
+. foreach var of varlist `pc_ivlist' {
+ 87. 
+. egen first_`m'_reg`i'_`var' = mean(first_`m'_b`i'_`var')
+ 88. 
+. gen first_`m'_dhat`i'_`var'=first_`m'_b`i'_`var'-first_`m'_reg`i'_`var'
+ 89. 
+. gen first_`m'_sum_errors`i'_`var'=.
+ 90. 
+. }
+ 91. 
+. 
+. 
+. sum statefip
+ 92. 
+. levelsof statefip, local(levels) 
+ 93. 
+. foreach k of local levels {
+ 94. 
+. mkmat `pc_ivlist' if statefip==`k' `options', matrix(Z) 
+ 95. 
+. mkmat first_`m'_resid`i' if statefip==`k' `options', matrix(e)
+ 96. 
+. matrix zz=Z'*Z
+ 97. 
+. matrix ze=Z'*e
+ 98. 
+. matrix sum_comp=invsym(zz)*ze
+ 99. 
+. local j=1
+100. 
+. foreach var of varlist `pc_ivlist' {
+101. 
+. local d`j'=sum_comp[`j',1]
+102. 
+. replace first_`m'_sum_errors`i'_`var'=`d`j'' if statefip==`k'
+103. 
+. local j `++j'
+104. 
+. }
+105. 
+. }
+106. 
+. foreach var of varlist `pc_ivlist' {
+107. 
+. egen first_`m'_var`i'_dhat_`var'=sd(first_`m'_dhat`i'_`var') if pickone`i'_1=
+> =1
+108. 
+. egen first_`m'_var`i'_`var'=sd(first_`m'_sum_errors`i'_`var') if pickone`i'_1
+> ==1
+109. 
+. gen first_`m'_se`i'_`var'=sqrt((first_`m'_var`i'_dhat_`var'^2+first_`m'_var`i
+> '_`var'^2)/51)
+110. 
+. gen first_`m'_t`i'_`var'=first_`m'_reg`i'_`var'/first_`m'_se`i'_`var'
+111. 
+. }
+112. 
+. local m `++m'
+113. 
+. }
+114. 
+. 
+. 
+. *** second stage ***
+. 
+. 
+. 
+. foreach var of varlist `pc_endoglist' {
+115. 
+. gen b`i'_`var'=.
+116. 
+. }
+117. 
+. gen b`i'_cons=.
+118. 
+. 
+. 
+. gen yhat`i'=.
+119. 
+. 
+. 
+. * first obtain the residuals by regressing y and x2 on x1_hat per cluster
+. 
+. sum statefip
+120. 
+. levelsof statefip, local(levels) 
+121. 
+. foreach k of local levels {
+122. 
+. reg logvolume x_hat`i'_* if statefip==`k'
+123. 
+. predict yhat`i'_`k', resid
+124. 
+. replace yhat`i' = yhat`i'_`k' if statefip==`k'
+125. 
+. }
+126. 
+. 
+. 
+. drop yhat`i'_*
+127. 
+. 
+. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+128. 
+. 
+. 
+. gen `exog'_2hat`i'=.
+129. 
+. 
+. 
+. sum statefip
+130. 
+. levelsof statefip, local(levels) 
+131. 
+. foreach k of local levels {
+132. 
+. reg `exog' x_hat`i'_* if statefip==`k'
+133. 
+. predict `exog'_2hat`i'_`k', resid
+134. 
+. replace `exog'_2hat`i' = `exog'_2hat`i'_`k' if statefip==`k'
+135. 
+. }
+136. 
+. 
+. 
+. drop `exog'_2hat`i'_*
+137. 
+. 
+. 
+. }
+138. 
+. 
+. 
+. * regress residualized y on residualized x2. Then, obtain y_breve = y - delta
+> _hat*x2
+. 
+. 
+. 
+. reg yhat`i' *_2hat`i'
+139. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+140. 
+. gen y_breve`i'_b_`exog'=_b[`exog'_2hat`i']
+141. 
+. }
+142. 
+. 
+. 
+. gen y_breve`i' = logvolume
+143. 
+. foreach exog of varlist `covars' `covars_miss' tm1-tm359 dat {
+144. 
+. replace y_breve`i'= y_breve`i' - (y_breve`i'_b_`exog'*`exog')
+145. 
+. }
+146. 
+. 
+. 
+. * reg y_breve on x1_hat per cluster
+. 
+. 
+. 
+. gen resid`i'= y_breve`i'
+147. 
+. 
+. 
+. sum statefip
+148. 
+. levelsof statefip, local(levels) 
+149. 
+. foreach k of local levels {
+150. 
+.  
+. 
+. reg y_breve`i' x_hat`i'_* if statefip==`k'
+151. 
+. local m=1
+152. 
+. foreach var of varlist `pc_endoglist' {
+153. 
+. replace b`i'_`var'=_b[x_hat`i'_`m'] if statefip==`k'
+154. 
+. replace resid`i'=resid`i'-b`i'_`var'*`var' if statefip==`k'
+155. 
+. local m `++m'
+156. 
+. }
+157. 
+. }
+158. 
+. 
+. 
+. * my pieces 
+. 
+. rename b1_logprice elast 
+159. 
+. keep statefip state_fips obsid elast land_area weather_index flatness_index l
+> icensed_drivers 
+160. 
+. duplicates drop statefip, force
+161. 
+. 
+. 
+. *local predictors = "land_area weather_index flatness_index"
+. 
+. 
+. 
+. * regressions 
+. 
+. reg elast land_area [aweight=licensed_drivers], robust 
+162. 
+. return scalar b_land_area = _b[land_area]
+163. 
+. 
+. 
+. reg elast weather_index [aweight=licensed_drivers], robust 
+164. 
+. return scalar b_weather_index = _b[weather_index]
+165. 
+. 
+. 
+. reg elast flatness_index [aweight=licensed_drivers], robust 
+166. 
+. return scalar b_flatness_index = _b[flatness_index]
+167. 
+. 
+. 
+. restore 
+168. 
+. 
+. 
+. end
+
+. 
+. 
+. 
+. ****Check program
+
+. 
+. bootstrap b_land_area=r(b_land_area) b_weather_index=r(b_weather_index) b_fla
+> tness_index=r(b_flatness_index), reps(`bootnum') seed(`seed') cluster(statefi
+> p) idcluster(state_fips) saving("2000_data/ch3_boot_t2_s5.dta", every(10) rep
+> lace): ch3_boot
+(running ch3_boot on estimation sample)
+
+warning: Because ch3_boot is not an estimation command or does not set
+         e(sample), bootstrap has no way to determine which observations are
+         used in calculating the statistics and so assumes that all
+         observations are used. This means that no observations will be
+         excluded from the resampling because of missing values or other
+         reasons.
+
+         If the assumption is not true, press Break, save the data, and drop
+         the observations that are to be excluded. Be sure that the dataset
+         in memory contains only the relevant data.
+(note: file 2000_data/ch3_boot_t2_s5.dta not found)
+
+Bootstrap replications (50)
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5 
+.............................
