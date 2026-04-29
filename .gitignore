@@ -15,6 +15,9 @@ pciv/
 3000_code/estimation/
 3000_code/simulation/
 
+# File too large to upload to GitHub
+2000_data/census_public_transport_state_carpool-002.csv
+
 # Ignore common bulky or generated files outside desired folders
 *.dta
 *.xlsx
