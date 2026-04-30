@@ -24,7 +24,10 @@ pciv/
 *.xls
 *.csv
 *.zip
+
 *.pdf
+!PCIV Gas Tax Paper.pdf
+
 *.doc
 *.docx
 *.gph
