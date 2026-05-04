@@ -1,11 +1,19 @@
 # 03_GAS_TAX_HETEROGENEITY_paper
 
-This repository contains replication materials for the heterogeneous gas tax elasticity dissertation chapter.
+## Overview
+Research project examining heterogeneous effects of gas tax changes on economic and behavioral outcomes.
 
-## Structure
-- `1000_scripts/` : Data cleaning and econometric analysis
-- `2000_data/` : Source and processed datasets
-- `6000_LaTeX/` : Chapter manuscript and figure/table outputs
+## Contents
+- `2000_data/` — raw and processed datasets  
+- `3000_code/` — Stata analysis scripts  
+- `6000_LaTeX/` — manuscript files, tables, and figures  
 
-## Notes
-Certain oversized raw data files may be excluded from GitHub due to file-size restrictions.
+## Purpose
+Reproduces the empirical analysis, tables, figures, and manuscript for the paper.
+
+## Tools
+- Stata
+- LaTeX
+
+## Author
+David Ford
